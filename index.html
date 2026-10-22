@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <title>PokéAlbum — Pokémon Card Collection</title>
+
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+            rel="stylesheet">
+
+    <link rel="stylesheet" href="css/styles.css">
+
+    <script src="js/app.js" defer></script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container py-2">
+        <a class="navbar-brand fw-bold" href="#">
+            PokéAlbum
+        </a>
+
+        <span class="text-white-50">
+            Pokémon Trading Card Game
+        </span>
+    </div>
+</nav>
+
+<header class="hero text-center py-5">
+    <div class="container">
+
+        <h1 class="fw-bold">
+            Explore Your Favorite Pokémon Cards
+        </h1>
+
+        <p class="text-secondary mt-3">
+            Discover cards, sets, and series from
+            the Pokémon Trading Card Game.
+        </p>
+
+    </div>
+</header>
+
+<main class="container py-5">
+
+
+    <div class="row g-3 mb-4">
+
+        <!-- Search -->
+        <div class="col-12">
+            <label for="searchInput"
+                   class="form-label fw-semibold">
+                Search Pokémon Cards
+            </label>
+
+            <input type="search"
+                   id="searchInput"
+                   class="form-control form-control-lg"
+                   placeholder="Search Pikachu, Charizard, Eevee..."
+                   value="Pikachu">
+
+            <div class="form-text">
+                Search starts 4 seconds after you stop typing.
+            </div>
+        </div>
+
+        <!-- Series filter -->
+        <div class="col-12 col-md-6">
+            <label for="seriesFilter"
+                   class="form-label fw-semibold">
+                Pokémon Series
+            </label>
+
+            <select id="seriesFilter" class="form-select">
+                <option value="">All Series</option>
+            </select>
+        </div>
+
+        <!-- Sets filter -->
+        <div class="col-12 col-md-6">
+            <label for="setFilter"
+                   class="form-label fw-semibold">
+                Card Set
+            </label>
+
+            <select id="setFilter" class="form-select">
+                <option value="">All Sets</option>
+            </select>
+        </div>
+
+    </div>
+
+
+    <div class="d-flex flex-wrap justify-content-between
+            align-items-center gap-2 mb-4">
+
+        <h2 class="h4 fw-bold mb-0">
+            Card Gallery
+        </h2>
+
+        <span id="cardCounter" class="text-secondary">
+        0 cards
+    </span>
+    </div>
+
+    <p id="status" class="text-secondary" role="status">
+        Loading Pokémon cards...
+    </p>
+
+
+    <div id="cardsContainer"
+         class="row row-cols-1 row-cols-sm-2
+                row-cols-lg-3 g-4">
+    </div>
+
+
+    <!-- Pagination -->
+    <div class="d-flex flex-wrap justify-content-center
+            align-items-center gap-3 mt-5">
+
+        <button id="previousButton"
+                type="button"
+                class="btn btn-outline-primary px-4"
+                disabled>
+            Previous
+        </button>
+
+        <span id="pageIndicator" class="fw-semibold">
+        Page 1
+    </span>
+
+        <button id="nextButton"
+                type="button"
+                class="btn btn-primary px-4"
+                disabled>
+            Next
+        </button>
+
+    </div>
+
+</main>
+
+<!-- Card Details Modal -->
+<div class="modal fade"
+     id="cardDetailsModal"
+     tabindex="-1"
+     aria-labelledby="cardDetailsTitle"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-lg
+                modal-dialog-centered
+                modal-dialog-scrollable">
+
+        <div class="modal-content rounded-4">
+
+            <div class="modal-header">
+                <h2 class="modal-title fs-4"
+                    id="cardDetailsTitle">
+                    Card Details
+                </h2>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close">
+                </button>
+            </div>
+
+            <div class="modal-body p-4">
+
+                <p id="cardDetailsStatus"
+                   role="status"
+                   class="text-secondary">
+                    Loading...
+                </p>
+
+                <div class="row g-4">
+
+                    <div class="col-12 col-md-5 text-center">
+
+                        <img id="detailImage"
+                             class="img-fluid rounded-3"
+                             style="max-height: 430px;
+                                    object-fit: contain;"
+                             alt="Pokémon card">
+
+                        <p id="detailImageFallback"
+                           class="text-secondary d-none">
+                            Image not available
+                        </p>
+                    </div>
+
+                    <div class="col-12 col-md-7">
+
+                        <h3 id="detailName"
+                            class="fw-bold mb-3"></h3>
+
+                        <p id="detailCategory"></p>
+                        <p id="detailHp"></p>
+                        <p id="detailTypes"></p>
+                        <p id="detailRarity"></p>
+                        <p id="detailIllustrator"></p>
+                        <p id="detailSet"></p>
+                        <p id="detailSeries"></p>
+                        <p id="detailNumber"></p>
+
+                        <p id="detailDescription"
+                           class="text-secondary"></p>
+
+                        <h4 class="h6 fw-bold mt-4">
+                            Attacks
+                        </h4>
+
+                        <div id="detailAttacks"></div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                    Close
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<footer class="text-center py-4 text-secondary">
+    Web Programming Project — PokéAlbum
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
